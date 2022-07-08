@@ -28,7 +28,7 @@ jobs:
           command: echo "text to output here" > ~/tmp/output.txt
 
       - persist_to_workspace:
-          root: ~/tmp
+          root: ~/
           paths:
             - output.txt
     
@@ -38,7 +38,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/tmp
+          at: ~/
       - run:
           name: "get text from file"
           command: cat ~/tmp/output.txt
