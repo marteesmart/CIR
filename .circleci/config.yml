@@ -25,10 +25,10 @@ jobs:
       - checkout
       - run:
           name: "save text to file"
-          command: echo "text to output here" > ~/output.txt
+          command: echo "text to output here" > ~/tmp/output.txt
 
       - persist_to_workspace:
-          root: ~/
+          root: ~/tmp
           paths:
             - output.txt
     
@@ -38,10 +38,10 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/
+          at: ~/tmp
       - run:
           name: "get text from file"
-          command: cat ~/output.txt
+          command: cat ~/tmp/output.txt
 
       
 
