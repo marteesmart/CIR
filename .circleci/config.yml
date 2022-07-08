@@ -25,10 +25,10 @@ jobs:
       - checkout
       - run:
           name: "save text to file"
-          command: echo "text to output here" > output.txt
+          command: echo "text to output here" > ~/output.txt
 
       - persist_to_workspace:
-          root: /tmp
+          root: ~/
           paths:
             - output.txt
     
@@ -39,10 +39,10 @@ jobs:
       - checkout
       - run:
           name: "get text from file"
-          command: cat output.txt
+          command: cat ~/output.txt
 
       - attach_workspace:
-          at: /tmp/output.txt
+          at: ~/
 
   print-variable:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
