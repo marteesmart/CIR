@@ -84,6 +84,7 @@ workflows:
       - say-hello
       - print-variable
       - save_hello_world_output
+      - command-job
       - print_output_file:
           requires:
             - save_hello_world_output
