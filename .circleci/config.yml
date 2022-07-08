@@ -61,7 +61,19 @@ jobs:
           name: "get text from file"
           command: cat ~/output.txt
 
-      
+
+  error-handling:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run:
+          name: "add error"
+          command: "return 1"
+      - run:
+          name: "handle error"
+          command: "echo error encountered!"
+          when: on_fail
+
 
   print-variable:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -85,6 +97,7 @@ workflows:
       - print-variable
       - save_hello_world_output
       - command-job
+      - error-handling
       - print_output_file:
           requires:
             - save_hello_world_output
