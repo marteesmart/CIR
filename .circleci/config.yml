@@ -16,20 +16,33 @@ jobs:
       - checkout
       - run:
           name: "Say hello"
-          command: "echo Hello,"
+          command: "echo Hello World"
 
-  say-world:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+  save_hello_world_output:
     docker:
       - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
       - checkout
       - run:
-          name: "Say world"
-          command: "echo World!"
+          name: "save text to file"
+          command: echo "text to output here" > output.txt
+
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - output.txt
+    
+  print_output_file:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "get text from file"
+          command: cat output.txt
+
+      - attach_workspace:
+          at: /tmp/output.txt
 
   print-variable:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -50,7 +63,8 @@ workflows:
   say-hello-workflow:
     jobs:
       - say-hello
-      - say-world:
-          requires:
-            - say-hello
       - print-variable
+      - save_hello_world_output
+      - print_output_file:
+          requires:
+            - save_hello_world_output
