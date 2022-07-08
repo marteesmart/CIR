@@ -42,7 +42,7 @@ jobs:
       - checkout
       - run:
           name: "Print Variable"
-          command: "$Author # this env var must be set within the project"
+          command: "echo $Author # this env var must be set within the project"
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
