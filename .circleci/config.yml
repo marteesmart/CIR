@@ -72,7 +72,7 @@ jobs:
       - run:
           name: "handle error"
           command: "echo error encountered!"
-          when: on_fail
+          #when: on_fail
 
 
   print-variable:
